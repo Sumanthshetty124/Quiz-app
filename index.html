@@ -1,214 +1,44 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Unit II Full Quiz</title>
-  <style>
-    body { font-family: Arial; text-align: center; padding: 20px; }
-    button { margin: 5px; padding: 10px; width: 220px; }
-    .correct { background-color: lightgreen; }
-    .wrong { background-color: salmon; }
-  </style>
+  <title>Quiz App</title>
 </head>
 
 <body>
 
-<h2>Unit II – Full Quiz (102 Questions)</h2>
+<h2>Quiz Working Test</h2>
 
-<p id="timer">Time: 300</p>
-<p id="progress"></p>
-
-<div id="quiz-box"></div>
-
-<button onclick="nextQ()">Next</button>
-
-<p id="score"></p>
+<div id="quiz"></div>
+<p id="result"></p>
 
 <script>
 let quiz = [
-{q:"Objectives of Beti Bachao Beti Padhao?",o:["1,3,4","2,3,4","3 and 4","All"],a:"1,3,4"},
-{q:"Festival for BBBP?",o:["Kala Mahotsava","Mala Utsav","Jana Utsav","Kala Utsav"],a:"Kala Utsav"},
-{q:"Nodal ministry?",o:["Home Affairs","Health","Women and Child Development","NITI Aayog"],a:"Women and Child Development"},
-{q:"BBBP slogan by?",o:["Smriti Irani","Narendra Modi","Amit Shah","None"],a:"Narendra Modi"},
-{q:"BBBP started?",o:["2016","2015","2018","2022"],a:"2015"},
-{q:"National Girl Child Day?",o:["12 Jan","24 Jan","14 Jan","10 Jan"],a:"24 Jan"},
-{q:"BBBP launched in?",o:["Rajasthan","Haryana","Punjab","Karnataka"],a:"Haryana"},
-{q:"Logo designer?",o:["Narendra Modi","Manmohan Singh","A J Raghuvendra","None"],a:"A J Raghuvendra"},
-{q:"CVCs are?",o:["State org","Private govt supported","Traditional local bodies","None"],a:"Traditional local bodies"},
-{q:"Khap Panchayat?",o:["Traditional institution","Govt body","Judicial","None"],a:"Traditional institution"},
-
-{q:"SHG promoted by?",o:["RBI","RRB","NABARD","Cooperative"],a:"NABARD"},
-{q:"SHG problems?",o:["Finance","Management","Unity","All"],a:"All"},
-{q:"Panchayat committees?",o:["Balwant","Ashok","GVK","All"],a:"All"},
-{q:"Panchayat amendment?",o:["73rd 1990","74th 1992","73rd 1992","74th 1994"],a:"73rd 1992"},
-{q:"Panchayat Raj?",o:["Three-tier","Two-tier","Single","None"],a:"Three-tier"},
-{q:"Women reservation?",o:["1/3;1/3","1/3;2/3","2/3;1/3","1/3;1/4"],a:"1/3;1/3"},
-{q:"Disqualification article?",o:["243B","243F","243J","243K"],a:"243F"},
-{q:"Min age Panchayat?",o:["25","30","21","18"],a:"21"},
-{q:"Election article?",o:["243O","243F","243J","243K"],a:"243K"},
-{q:"Court bar article?",o:["243O","243F","243J","243K"],a:"243O"},
-
-{q:"PESA Act?",o:["Extension Act","Empowerment Act","Skill Act","None"],a:"Extension Act"},
-{q:"Father Rural Dev?",o:["SK Dey","Tagore","Raja Ram Mohan Roy","Patel"],a:"SK Dey"},
-{q:"Swachh Bharat cess?",o:["1.5%","0.75%","0.5%","0.25%"],a:"0.5%"},
-{q:"Not Panchayat committee?",o:["Drafting Committee","Balwant","Ashok","GVK"],a:"Drafting Committee"},
-{q:"Balwant year?",o:["1968","1947","1950","1957"],a:"1957"},
-// PART 2 (Q26–50)
-{q:"Father of Panchayat Raj system?",o:["L M Singhvi","Ashok Mehta","Balwant Rai Mehta","G V K Rao"],a:"Balwant Rai Mehta"},
-{q:"Primary body of Panchayat Raj?",o:["Standing Committee","Gram Sabha","Khap Panchayat","None"],a:"Gram Sabha"},
-{q:"Who maintains land records?",o:["District Collector","Patwari","Panchayat President","None"],a:"Patwari"},
-{q:"SSA aims at?",o:["Higher Education","Technical Education","Medical Education","Universal Elementary Education"],a:"Universal Elementary Education"},
-{q:"RTE came into force?",o:["1 April 2010","22 April 2010","11 April 2010","1 April 2018"],a:"1 April 2010"},
-
-{q:"Padhe Bharat Badhe Bharat is part of?",o:["Holistic Education","NEP","National Education Policy","Sarva Shiksha Abhiyan"],a:"Sarva Shiksha Abhiyan"},
-{q:"NIPUN Bharat launched under?",o:["SSA 2021","Samagra Shiksha 2021","NEP 2021","None"],a:"Samagra Shiksha 2021"},
-{q:"Saakshar Bharat launched by?",o:["Samagra Shiksha","SSA","Madhyamika","Saakshar Bharat"],a:"Saakshar Bharat"},
-{q:"Brand ambassador BBBP?",o:["Sakshi Malik","Neeraj Chopra","Vijender Kumar","Abhinav Bindra"],a:"Sakshi Malik"},
-{q:"Selfie with Daughter started by?",o:["Narendra Modi","Manmohan Singh","Sunil Jaglan","Smriti Irani"],a:"Sunil Jaglan"},
-
-{q:"3As of healthcare?",o:["Affordability, Accountability, Accuracy","Accessibility, Availability, Accountability","Affordability, Accessibility, Availability","Accessibility, Authenticity, Accountability"],a:"Affordability, Accessibility, Availability"},
-{q:"Ayushman Bharat launched?",o:["2021","2015","2018","2022"],a:"2018"},
-{q:"Health cover amount?",o:["3 lakh","10 lakh","5 lakh","1.5 lakh"],a:"5 lakh"},
-{q:"Scheme name?",o:["Samman Bharat","Ayushman Bharat","Adarsh Bharat","Nirmaan Bharat"],a:"Ayushman Bharat"},
-{q:"Who heads NHPMC?",o:["Prime Minister","Health Minister","Ayush Minister","NITI Chairman"],a:"Health Minister"},
-
-{q:"SHA stands for?",o:["State Health Agency","Society Health Agency","Strategic Health Agency","Social Health Agency"],a:"State Health Agency"},
-{q:"Beneficiaries target?",o:["100 crore","10.74 crore","10.47 crore","10.65 crore"],a:"10.74 crore"},
-{q:"Partner for cashless?",o:["Paytm","Reliance","NITI Aayog","None"],a:"NITI Aayog"},
-{q:"New India target year?",o:["2022","2021","2030","2047"],a:"2022"},
-{q:"Correct statement AB?",o:["1 only","2 only","Both","Neither"],a:"Both"},
-
-{q:"Linked with Ayushman Bharat?",o:["ABHA","ASHA","USHA","None"],a:"ASHA"},
-{q:"ABHA stands for?",o:["All Body Health","Ayushman Bharat Health Account","Health Assessment","Agreement"],a:"Ayushman Bharat Health Account"},
-{q:"ABHA eligibility?",o:["All citizens","Income <5 lakh","BPL","SC/ST/EWS"],a:"All citizens"},
-{q:"NDHM means?",o:["Direct Health","Monitoring","Doctors Health","National Digital Health Mission"],a:"National Digital Health Mission"},
-{q:"AB-PMJAY correct?",o:["1 only","1 and 2","1 and 3","2 and 3"],a:"1 and 2"},
-// PART 3 (Q51–75)
-{q:"Swachh Bharat Abhiyan started?",o:["2016","2015","2018","2014"],a:"2014"},
-{q:"Swachh Bharat aims?",o:["1 only","2 only","Neither","Both"],a:"Both"},
-{q:"Swachh Bharat is restructured version of?",o:["Nirmal Bharat Abhiyan","Clean India Campaign","Clean City Campaign","None"],a:"Nirmal Bharat Abhiyan"},
-{q:"Gandhi 150th anniversary?",o:["2 Oct 2019","2 Oct 2020","2 Oct 2021","2 Oct 2018"],a:"2 Oct 2019"},
-{q:"Tagline ‘Ek Kadam Swachhata Ki Aur’ given by?",o:["Anant Khasbardar","Narendra Modi","M S Swaminathan","Bhagyasri Sheth"],a:"Bhagyasri Sheth"},
-
-{q:"Logo of Swachh Bharat designed by?",o:["Anant Khasbardar","Narendra Modi","M S Swaminathan","Bhagyasri Sheth"],a:"Anant Khasbardar"},
-{q:"Budget for SBM 2.0?",o:["100 cr","10.4k cr","75.1k cr","1.41 lakh cr"],a:"1.41 lakh cr"},
-{q:"Civil servant led SBM?",o:["Hari Chandana","Parameswaran Iyer","Renu Raj","Kunwar Bai"],a:"Parameswaran Iyer"},
-{q:"Champaran Satyagraha date?",o:["13 Apr 1919","10 Apr 1916","12 Mar 1931","None"],a:"10 Apr 1916"},
-{q:"SBM launched at?",o:["Patna","Rajghat Delhi","Lucknow","Kurukshetra"],a:"Rajghat Delhi"},
-
-{q:"Sub missions in SBM?",o:["2","4","6","3"],a:"2"},
-{q:"Nirmal Bharat launched?",o:["2013","2009","2020","2012"],a:"2009"},
-{q:"Objectives SBM?",o:["Open defecation","Manual scavenging","Waste mgmt","All"],a:"All"},
-{q:"Twitter hashtag SBM?",o:["#MyIncredibleIndia","#MyCleanIndia","#MyNeatIndia","#MySmartIndia"],a:"#MyCleanIndia"},
-{q:"World Toilet Day?",o:["14 Aug","19 Nov","13 Feb","15 Sep"],a:"19 Nov"},
-
-{q:"First manual scavenging free city?",o:["Alwar","Bharuch","Trichy","Jaipur"],a:"Bharuch"},
-{q:"Cleanest village?",o:["Mawlynnong","Punsari","Dharani","Ballia"],a:"Mawlynnong"},
-{q:"Tagline SBM?",o:["One India Clean India","Swachh Bharat Mera Bharat","Ek Kadam Swachhata Ki Ore","None"],a:"Ek Kadam Swachhata Ki Ore"},
-{q:"Committee for Panchayat Raj?",o:["Drafting","Balwant Rai Mehta","Ashok Mehta","None"],a:"Balwant Rai Mehta"},
-{q:"Direct election system?",o:["Panchayat Raj","Block Committee","Zilla Parishad","All"],a:"Panchayat Raj"},
-
-{q:"Article for Panchayati Raj?",o:["324","326","194","243"],a:"243"},
-{q:"Purpose Panchayat Raj?",o:["Decentralization","Prevent crime","Village dev","Reduce expense"],a:"Decentralization"},
-{q:"Schedule added?",o:["8","11","12","10"],a:"11"},
-{q:"Incorrect Gram Sabha?",o:["Electoral body","Village assembly","Central govt powers","State like powers"],a:"Central govt powers"},
-{q:"True about Panchayat Raj?",o:["1 only","2 and 4","1 and 3","All"],a:"All"},
-// PART 4 (Q76–102)
-{q:"Reservation for women in Panchayat?",o:["1/3","1/4","2/3","None"],a:"1/3"},
-{q:"SBSV campaign under ministry?",o:["Environment","HRD","Agriculture","Urban"],a:"HRD"},
-{q:"Primary goal SBM?",o:["Clean India","Digital India","Smart India","Skill India"],a:"Clean India"},
-{q:"Skill India launched?",o:["15 July 2018","15 Aug 2016","15 July 2015","None"],a:"15 July 2015"},
-{q:"Partner country Skill India?",o:["Bhutan","Russia","USA","UK"],a:"UK"},
-
-{q:"SANKALP stands for?",o:["Skill Awareness","Skill Acquisition and Knowledge Awareness for Livelihood Promotion","Social Acquisition","None"],a:"Skill Acquisition and Knowledge Awareness for Livelihood Promotion"},
-{q:"Skill India managed by?",o:["NSDC","Urban Dev Corp","Labour Unions","None"],a:"NSDC"},
-{q:"Skill India ministry?",o:["Labour","HRD","Skill Dev and Entrepreneurship","NITI"],a:"Skill Dev and Entrepreneurship"},
-{q:"Initiative of Skill India?",o:["Food for Life","PMKVY","RTE","Sadak Yojana"],a:"PMKVY"},
-{q:"NRLM statements?",o:["1 only","2 only","Both","None"],a:"Both"},
-
-{q:"NRLM launched by ministry?",o:["Labour","Rural Development","Urban","HRD"],a:"Rural Development"},
-{q:"Platform for SHG sharing?",o:["Cluster Forum","Community Forum","Common Leave","None"],a:"Community Forum"},
-{q:"NRLM strategy?",o:["Supply","Demand driven","Income","None"],a:"Demand driven"},
-{q:"World Bank ‘stellar example’?",o:["NRLM","Rural Livelihood Mission","NREGA","None"],a:"NREGA"},
-{q:"NREGA provides days?",o:["180","200","150","100"],a:"100"},
-
-{q:"Key functionary MNREGA?",o:["Village Secretary","Gram Rozgar Sahayak","Gramin Adhikari","None"],a:"Gram Rozgar Sahayak"},
-{q:"First state disabled MNREGA?",o:["Kerala","Tamil Nadu","Gujarat","Karnataka"],a:"Tamil Nadu"},
-{q:"Job card validity?",o:["5 years","4 years","10 years","Lifetime"],a:"5 years"},
-{q:"Social Audit selected by?",o:["Zilla Panchayat","Collector","Gram Sabha","Minister"],a:"Gram Sabha"},
-{q:"150 days increased state?",o:["Karnataka","Tamil Nadu","Kerala","Bihar"],a:"Tamil Nadu"},
-
-{q:"Largest DBT head?",o:["MNREGA","LPG Subsidy","Fertilizer","Compensation"],a:"MNREGA"},
-{q:"PMAY-G correct?",o:["1 only","2 only","Both","Neither"],a:"2 only"},
-{q:"Workdays drought areas?",o:["120","200","150","280"],a:"150"},
-{q:"Green India merged with?",o:["River Scheme","Swachh Bharat","Afforestation","MNREGA"],a:"MNREGA"},
-{q:"MGNREGA statements?",o:["1 only","1 and 3","2 and 3","1 and 2"],a:"1 and 2"},
-{q:"Human resource development?",o:["Skill dev","Literacy","Training","All"],a:"All"},
-{q:"Rural development aims?",o:["1 only","2 only","1 and 3","1,2,3"],a:"1,2,3"}];
-// ⚠️ CONTINUES SAME PATTERN...
-
+  {q:"2 + 2 = ?", o:["3","4","5","6"], a:"4"},
+  {q:"Capital of India?", o:["Mumbai","Delhi","Chennai","Kolkata"], a:"Delhi"}
 ];
 
-// ⚠️ AUTO DUPLICATE TO 102 (temporary fill if needed)
-while(quiz.length <= 102){
-  quiz.push(...quiz.slice(0,102-quiz.length));
-}
-
-// shuffle
-quiz.sort(()=>Math.random()-0.5);
-
-let i=0, score=0, answered=false;
-
-// timer
-let time=300;
-let t=setInterval(()=>{
-  time--;
-  document.getElementById("timer").innerText="Time: "+time;
-  if(time<=0){ clearInterval(t); endQuiz(); }
-},1000);
+let i = 0;
+let score = 0;
 
 function loadQ(){
-  answered=false;
-  let q=quiz[i];
-  let opts=[...q.o].sort(()=>Math.random()-0.5);
-
-  let html="<h3>"+(i+1)+". "+q.q+"</h3>";
-  opts.forEach(opt=>{
-    html+=`<button onclick="checkAns(this,'${opt}')">${opt}</button><br>`;
+  let q = quiz[i];
+  let html = "<h3>"+q.q+"</h3>";
+  q.o.forEach(opt=>{
+    html += `<button onclick="check('${opt}')">${opt}</button><br>`;
   });
-
-  document.getElementById("quiz-box").innerHTML=html;
-  document.getElementById("progress").innerText=`Question ${i+1}/102`;
+  document.getElementById("quiz").innerHTML = html;
 }
 
-function checkAns(btn,ans){
-  if(answered) return;
-  answered=true;
-
-  let correct=quiz[i].a;
-  let buttons=document.querySelectorAll("#quiz-box button");
-
-  buttons.forEach(b=>{
-    if(b.innerText===correct) b.classList.add("correct");
-    if(b.innerText===ans && ans!==correct) b.classList.add("wrong");
-  });
-
-  if(ans===correct) score++;
-}
-
-function nextQ(){
-  if(!answered) return alert("Select answer!");
+function check(ans){
+  if(ans === quiz[i].a) score++;
   i++;
-  if(i<102){
+  if(i < quiz.length){
     loadQ();
   } else {
-    endQuiz();
+    document.getElementById("quiz").innerHTML = "Finished!";
+    document.getElementById("result").innerHTML = "Score: " + score;
   }
-}
-
-function endQuiz(){
-  document.getElementById("quiz-box").innerHTML="<h2>Finished!</h2>";
-  document.getElementById("score").innerHTML=
-    `Score: ${score}/102<br>Percentage: ${Math.round(score/102*100)}%`;
 }
 
 loadQ();
